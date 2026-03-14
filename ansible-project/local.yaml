@@ -5,4 +5,5 @@
    become: yes
    tasks:
    - name: saying hi 
-     ansible.builtin.command: echo "Say Hi"
+     ansible.builtin.debug:
+      msg: "Hello :)"
