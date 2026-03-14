@@ -1,0 +1,8 @@
+---
+-  name: Creating file
+   hosts: all
+   become: yes
+   tasks:
+   - name: saying hi 
+   ansible.builtin.command:
+      echo "Say Hi"
