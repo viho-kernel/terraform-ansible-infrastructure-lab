@@ -2,3 +2,7 @@
 -  name: Creating file
    hosts: all
    become: yes
+   tasks:
+   - name: Pinging remote servers 
+     ansible.builtin.ping:
+       
