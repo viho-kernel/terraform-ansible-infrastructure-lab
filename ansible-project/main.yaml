@@ -10,4 +10,8 @@
       path: /tmp/boot
       mode: 755
       state: touch 
-       
+   - name: stat module 
+     ansible.builtin.stat:
+         path: /tmp/boot 
+     register: st
+
