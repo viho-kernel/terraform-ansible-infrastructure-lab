@@ -19,6 +19,6 @@
      ansible.builtin.copy:
          src: happy.txt
          dest: /tmp/boot
-         mode: 400
+         mode: 644
 
 
