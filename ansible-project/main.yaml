@@ -1,0 +1,4 @@
+---
+-  name: Creating file
+   hosts: all
+   become: yes
