@@ -18,7 +18,7 @@
    - name: Copying Module
      ansible.builtin.copy:
          src: happy.txt
-         dest: /tmp/boot/
+         dest: /tmp/boot
          mode: 400
-         
+
 
