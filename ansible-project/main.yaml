@@ -7,6 +7,7 @@
      ansible.builtin.ping:
    - name: creating a file on remote servers
      ansible.builtin.file:
-         path: /tmp/boot
-         state: file
+      path: /tmp/boot
+      mode: 755
+      state: touch 
        
