@@ -15,3 +15,10 @@
          path: /tmp/boot 
      register: st
 
+   - name: Copying Module
+     ansible.builtin.copy:
+         src: happy.txt
+         dest: /tmp/boot/
+         mode: 400
+         
+
