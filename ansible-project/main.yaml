@@ -5,4 +5,5 @@
    tasks:
    - name: Pinging remote servers 
      ansible.builtin.ping:
+   - name: 
        
