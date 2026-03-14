@@ -1,0 +1,19 @@
+terraform-key.pem
+# Terraform sensitive files
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# SSH Keys
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+
+# Ansible secrets
+.vault_pass.txt
+
+# OS junk
+.DS_Store
+Thumbs.dbg
