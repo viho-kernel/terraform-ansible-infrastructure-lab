@@ -1,6 +1,6 @@
 ---
 -  name: Creating file
-   hosts: all
+   hosts: local
    become: yes
    tasks:
    - name: saying hi 
