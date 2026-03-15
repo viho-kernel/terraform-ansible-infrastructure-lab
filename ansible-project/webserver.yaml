@@ -1,16 +1,19 @@
 ---
--  name: Creating file
-   hosts: dev
-   become: yes
-   tasks:
-    - name: Install web servers on Debian/Ubuntu
-      ansible.builtin.apt:
-        name: apache2
-        state: present
-      when: ansible_facts.os_family == "Debian"
+- name: Creating file
+  hosts: dev
+  become: yes
 
-    - name: Install web servers on RedHat/Amazon
-      ansible.builtin.dnf:
-        name: httpd
-        state: present
-      when: ansible_facts.os_family == "RedHat"
+  tasks:
+
+  - name: Install web servers on Debian/Ubuntu
+    ansible.builtin.apt:
+      name: apache2
+      state: present
+      update_cache: yes
+    when: ansible_facts.os_family == "Debian"
+
+  - name: Install web servers on RedHat/Amazon
+    ansible.builtin.dnf:
+      name: httpd
+      state: present
+    when: ansible_facts.os_family == "RedHat"
