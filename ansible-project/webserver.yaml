@@ -4,6 +4,13 @@
    become: yes
    tasks:
    - name: Install web servers
-     ansible.builtin.package:
+     ansible.builtin.apt:
         name: httpd
         state: present
+     when: ansible_facts.os_familt == "Ubuntu"
+
+   - name: Install web servers
+     ansible.builtin.dnf:
+        name: httpd
+        state: present
+     
