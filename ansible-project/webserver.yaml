@@ -1,6 +1,6 @@
 ---
 -  name: Creating file
-   hosts: all
+   hosts: dev
    become: yes
    tasks:
    - name: Install web servers
