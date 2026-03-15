@@ -1,0 +1,9 @@
+---
+-  name: Creating file
+   hosts: all
+   become: yes
+   tasks:
+   - name: Install web servers
+     ansible.builtin.package:
+        name: httpd
+        state: present
