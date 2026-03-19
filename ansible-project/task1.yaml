@@ -12,4 +12,5 @@
     register: userstate
   - name: create user
     ansible.builtin.command:
-      cmd: " useradd ramdas if 'userstate | int' == int else useradd ramdas & >> output.txt"
+      cmd: " useradd ramdas "
+    when: "if 'userstate | int' >= 0 else useradd ramdas &&>> output.txt"
