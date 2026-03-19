@@ -10,4 +10,4 @@
       register: javaversion
     - name: Display Version
       ansible.builtin.debug:
-        msg: "{{ javaversion.stderr, pythonversion.rc }}"
+        msg: "{{ javaversion.stderr, javaversion.rc }}"
