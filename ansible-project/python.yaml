@@ -6,7 +6,7 @@
     gather_facts: false
     tasks:
       - name: Checking python Version
-        ansible.builtin.shell: 'python --version'
+        ansible.builtin.shell: 'python3 --version'
         register: pythonversion
       - name: Display Version
         ansible.builtin.debug:
