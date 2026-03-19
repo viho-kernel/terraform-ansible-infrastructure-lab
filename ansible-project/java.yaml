@@ -7,7 +7,7 @@
   tasks:
     - name: Install Java on managed nodes
       ansible.builtin.package:
-        name: "{{ 'openjdk-11-jdk' if ansible_os_family == 'Debian' else 'java-11-openjdk' }}"
+        name: "{{ 'openjdk-17-jdk' if ansible_os_family == 'Debian' else 'java-17-openjdk' }}"
         update_cache: yes
         state: present
 
