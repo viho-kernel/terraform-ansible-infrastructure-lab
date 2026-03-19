@@ -25,4 +25,4 @@
 
     - name: Display Version
       ansible.builtin.debug:
-        msg: "{{ java_result.stderr_lines, java_result.rc }}"
+        msg: "{{ java_result.stderr | regex_search('\"([0-9._]+)\"', '\\1') | first, java_result.rc }}"
