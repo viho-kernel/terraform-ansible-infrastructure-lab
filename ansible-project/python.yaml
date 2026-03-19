@@ -10,4 +10,4 @@
         register: pythonversion
       - name: Display Version
         ansible.builtin.debug:
-          msg: "{{ pythonversion }}"
+          msg: "{{ pythonversion.stdout }}"
