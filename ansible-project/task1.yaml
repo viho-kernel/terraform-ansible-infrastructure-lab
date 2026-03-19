@@ -1,0 +1,15 @@
+#Create a user only if they don't exist and send the result to a file on your laptop"
+---
+- name: Checking and creating user
+  hosts: localhost
+  connection: local
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Check user exist or not 
+    ansible.builtin.command:
+      cmd: "id -u ramdas"
+    register: userstate
+  - name: create user
+    ansible.builtin.command:
+      cmd: " useradd ramdas if 'userstate | int' == int else useradd ramdas & >> output.txt"
