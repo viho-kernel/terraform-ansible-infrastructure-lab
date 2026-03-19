@@ -7,8 +7,7 @@
   gather_facts: yes
   tasks:
   - name: Check user exist or not 
-    ansible.builtin.command:
-      cmd: "id -u ramdas &> ./output.txt"
+    ansible.builtin.shell: "id -u ramdas > ./output.txt 2>&1"
     register: userstate
   # - name: create user
   #   ansible.builtin.command:
