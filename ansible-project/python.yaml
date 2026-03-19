@@ -2,7 +2,7 @@
   - name: Python Version
     become: yes
     hosts: "{{targets}}"
-    connection: local
+    #connection: local
     gather_facts: false
     tasks:
       - name: Checking python Version
