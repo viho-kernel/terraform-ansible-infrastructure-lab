@@ -1,0 +1,10 @@
+---
+  - name: Python Version
+    become: yes
+    hosts: "{{targets}}"
+    connection: ssh
+    gather_facts: false
+    tasks:
+    - name: checking java Version
+    ansible.builtin.command:
+      cmd: 'javac --version'
