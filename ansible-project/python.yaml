@@ -7,3 +7,7 @@
     tasks:
       - name: Checking python Version
         ansible.builtin.shell: 'python --version'
+        register: pythonversion
+      - name: Display Version
+        ansible.builtin.debug:
+          msg: "{{ pythonversion }}"
