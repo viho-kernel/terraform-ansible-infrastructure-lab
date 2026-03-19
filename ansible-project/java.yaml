@@ -6,7 +6,7 @@
   gather_facts: false
   tasks:
     - name: Checking java Version
-      ansible.builtin.shell: 'javac --version'
+      ansible.builtin.shell: 'java --version'
       register: javaversion
     - name: Display Version
       ansible.builtin.debug:
