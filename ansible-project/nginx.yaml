@@ -9,4 +9,4 @@
       state: present 
     become: yes
     become_user: root 
-    become_method: ssh
+    become_method: sudo
