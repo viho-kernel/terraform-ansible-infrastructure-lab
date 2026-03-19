@@ -4,22 +4,22 @@
     hosts: localhost
     connection: local
     vars_prompt:
-      - name: a
-        prompt: Enter 'a' value 
+      - name: k
+        prompt: Enter 'k' value 
       - name: b
         prompt: Enter 'b' value 
     vars:
-      addition: "{{a|int+b|int}}"
-      subtraction: "{{a|int-b|int}}"
-      multiplication: "{{a|int*b|int}}"
-      division: "{{a|int/b|int}}"
-      percent: "{{a|int%b|int}}"
+      addition: "{{k|int+b|int}}"
+      subtraction: "{{k|int-b|int}}"
+      multiplication: "{{k|int*b|int}}"
+      division: "{{k|int/b|int}}"
+      percent: "{{k|int%b|int}}"
     gather_facts: false 
     tasks:
       - name: displaying arithematic results 
         ansible.builtin.debug:
           msg:
-            - "a value is: {{a}} and b value is {{b}}"
+            - "k value is: {{k}} and b value is {{b}}"
             - "Addition is {{addition}}"
             - "Subtraction is {{subtraction}}"
             - "Multiplication is {{multiplication}}"
