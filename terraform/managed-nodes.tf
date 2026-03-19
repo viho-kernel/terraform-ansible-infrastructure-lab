@@ -11,8 +11,6 @@ resource "aws_instance" "amazon_node" {
     }
   )
 }
-
-
 resource "terraform_data" "amazon_node" {
 
   triggers_replace = [

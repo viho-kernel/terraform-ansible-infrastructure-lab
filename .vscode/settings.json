@@ -1,0 +1,6 @@
+{
+    "editor.fontSize": 16,
+    "editor.formatOnSave": true,
+    "chat.agent.thinking.terminalTools": false,
+    "terminal.integrated.fontSize": 16
+}
