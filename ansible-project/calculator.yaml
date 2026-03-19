@@ -1,0 +1,17 @@
+---
+  - name: Writing a calculator
+    become: yes
+    hosts: localhost
+    connection: local
+    vars_prompt:
+      - name: a
+        prompt: Enter a value 
+      - name: b
+        prompt: Enter b value 
+    gather_facts: false 
+    tasks:
+      - name: displaying arithematic results 
+        ansible.builtin.debug:
+          msg:
+            - "a value is: {{a}} and b value is {{b}}"
+            
