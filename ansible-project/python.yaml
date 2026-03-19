@@ -6,5 +6,4 @@
     gather_facts: false
     tasks:
       - name: Checking python Version
-        ansible.builtin.command: 
-          cmd: 'python --version'
+        ansible.builtin.shell: 'python --version'
