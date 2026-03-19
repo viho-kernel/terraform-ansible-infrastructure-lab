@@ -2,7 +2,7 @@
   - name: Python Version
     become: yes
     hosts: "{{targets}}"
-    connection: ssh
+    #connection: ssh
     gather_facts: false
     tasks:
       - name: Checking python Version
