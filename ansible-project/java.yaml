@@ -5,6 +5,12 @@
   connection: ssh
   gather_facts: false
   tasks:
+    - name: Install Java on managed nodes
+      ansible.builtin.dnf:
+        name: openjdk-11-jdk
+        update_cache: yes
+        state: present
+                
     - name: Checking java Version
       ansible.builtin.shell: 'java -version'
       register: javaversion
