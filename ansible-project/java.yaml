@@ -1,13 +1,13 @@
 ---
--   name: Java Version
-    become: yes
-    hosts: "{{targets}}"
-    connection: ssh
-    gather_facts: false
-    tasks:
-      - name: Checking java Version
-        ansible.builtin.shell: 'javac --version'
-        register: javaversion
-      - name: Display Version
-        ansible.builtin.debug:
-          msg: "{{ javaversion.stderr, pythonversion.rc }}"
+- name: Java Version
+  become: yes
+  hosts: "{{targets}}"
+  connection: ssh
+  gather_facts: false
+  tasks:
+    - name: Checking java Version
+      ansible.builtin.shell: 'javac --version'
+      register: javaversion
+    - name: Display Version
+      ansible.builtin.debug:
+        msg: "{{ javaversion.stderr, pythonversion.rc }}"
