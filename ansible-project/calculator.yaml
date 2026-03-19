@@ -5,13 +5,13 @@
     connection: local
     vars_prompt:
       - name: a
-        prompt: Enter a value 
+        prompt: Enter 'a' value 
       - name: b
-        prompt: Enter b value 
+        prompt: Enter 'b' value 
     gather_facts: false 
     tasks:
       - name: displaying arithematic results 
         ansible.builtin.debug:
           msg:
             - "a value is: {{a}} and b value is {{b}}"
-            
+            - "Addition is {{a|integer + b|interger}}"
