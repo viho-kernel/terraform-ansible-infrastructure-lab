@@ -3,17 +3,18 @@
   become: yes
   hosts: "{{targets}}"
   connection: ssh
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: Install Java on managed nodes
-      ansible.builtin.dnf:
-        name: openjdk-11-jdk
+      ansible.builtin.package:
+        name: "{{ 'openjdk-11-jdk' if ansible_os_family == 'Debian' else 'java-11-openjdk' }}"
         update_cache: yes
         state: present
-                
+
     - name: Checking java Version
       ansible.builtin.shell: 'java -version'
-      register: javaversion
+      register: java_result
+
     - name: Display Version
       ansible.builtin.debug:
-        msg: "{{ javaversion, javaversion.rc }}"
+        msg: "{{ java_result, java_result.rc }}"
