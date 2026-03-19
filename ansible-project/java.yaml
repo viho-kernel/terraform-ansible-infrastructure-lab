@@ -5,16 +5,19 @@
   connection: ssh
   gather_facts: true
   tasks:
-    - name: Display all facts
-      ansible.builtin.debug:
-        var: ansible_facts
+    - name: Install Java for RedHat Family (Amazon Linux)
+      ansible.builtin.yum:
+        name: java-11-openjdk
+        state: present
+      when: ansible_os_family == "RedHat"
 
-    # - name: Install Java on managed nodes
-    #   ansible.builtin.package:
-    #     name: "{{ 'openjdk-17-jdk' if ansible_os_family == 'Debian' else 'java-17-openjdk' }}"
-    #     update_cache: yes
-    #     state: present
-
+    - name: Install Java for Debian Family (Ubuntu)
+      ansible.builtin.apt:
+        name: openjdk-11-jdk
+        update_cache: yes
+        state: present
+      when: ansible_os_family == "Debian"
+      
     # - name: Checking java Version
     #   ansible.builtin.shell: 'java -version'
     #   register: java_result
