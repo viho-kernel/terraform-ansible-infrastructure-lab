@@ -14,4 +14,4 @@
         ansible.builtin.debug:
           msg:
             - "a value is: {{a}} and b value is {{b}}"
-            - "Addition is {{a|integer + b|interger}}"
+            - "Addition is {{a|int+b|int}}"
