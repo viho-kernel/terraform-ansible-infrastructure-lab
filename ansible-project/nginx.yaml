@@ -1,0 +1,12 @@
+---
+- name: Nginx
+  hosts: dev
+  connection: ssh
+  tasks:
+  - name: Install Nginx service 
+    ansible.builtin.package:
+      name: nginx
+      state: present 
+    become: yes
+    become_user: root 
+    become_method: ssh
