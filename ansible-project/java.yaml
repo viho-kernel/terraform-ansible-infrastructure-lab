@@ -23,6 +23,6 @@
       ansible.builtin.shell: 'java -version'
       register: java_result
 
-    - name: Display Version
+    - name: Display First Line of Java Output
       ansible.builtin.debug:
-        msg: "{{ java_result.stderr | regex_search('\"([0-9._]+)\"', '\\1') | first, java_result.rc }}"
+        msg: "Version found: {{ java_result.stderr_lines[0] }}"
