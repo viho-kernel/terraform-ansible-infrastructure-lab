@@ -8,6 +8,6 @@
     - name: Checking java Version
       ansible.builtin.shell: 'java -version'
       register: javaversion
-    - name: Display Version
-      ansible.builtin.debug:
-        msg: "{{ javaversion.stderr, javaversion.rc }}"
+    # - name: Display Version
+    #   ansible.builtin.debug:
+    #     msg: "{{ javaversion.stderr, javaversion.rc }}"
