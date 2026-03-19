@@ -8,9 +8,9 @@
   tasks:
   - name: Check user exist or not 
     ansible.builtin.command:
-      cmd: "id -u ramdas"
+      cmd: "id -u ramdas &>> ./output.txt"
     register: userstate
   - name: create user
     ansible.builtin.command:
       cmd: " useradd ramdas "
-    when: "if 'userstate | int' >= 0 else useradd ramdas &&>> output.txt"
+    when: " 'userstate | int' >= 0 else useradd ramdas &>> output.txt"
