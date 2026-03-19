@@ -5,16 +5,20 @@
   connection: ssh
   gather_facts: true
   tasks:
-    - name: Install Java on managed nodes
-      ansible.builtin.package:
-        name: "{{ 'openjdk-17-jdk' if ansible_os_family == 'Debian' else 'java-17-openjdk' }}"
-        update_cache: yes
-        state: present
-
-    - name: Checking java Version
-      ansible.builtin.shell: 'java -version'
-      register: java_result
-
-    - name: Display Version
+    - name: Display all facts
       ansible.builtin.debug:
-        msg: "{{ java_result, java_result.rc }}"
+        var: ansible_facts
+
+    # - name: Install Java on managed nodes
+    #   ansible.builtin.package:
+    #     name: "{{ 'openjdk-17-jdk' if ansible_os_family == 'Debian' else 'java-17-openjdk' }}"
+    #     update_cache: yes
+    #     state: present
+
+    # - name: Checking java Version
+    #   ansible.builtin.shell: 'java -version'
+    #   register: java_result
+
+    # - name: Display Version
+    #   ansible.builtin.debug:
+    #     msg: "{{ java_result, java_result.rc }}"
