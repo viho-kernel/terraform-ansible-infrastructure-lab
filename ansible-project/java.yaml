@@ -25,4 +25,4 @@
 
     - name: Display Version
       ansible.builtin.debug:
-        msg: "{{ java_result, java_result.rc }}"
+        msg: "{{ java_result.stderr_lines, java_result.rc }}"
