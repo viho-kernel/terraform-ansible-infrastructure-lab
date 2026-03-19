@@ -5,5 +5,5 @@
     connection: local
     gather_facts: false
     tasks:
-    - name: Checking python Version
-      ansible.builtin.command: "python --version"
+      - name: Checking python Version
+        ansible.builtin.command: "python --version"
