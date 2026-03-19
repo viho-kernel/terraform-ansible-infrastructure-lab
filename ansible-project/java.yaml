@@ -1,5 +1,5 @@
 ---
-  - name: Python Version
+  - name: Java Version
     become: yes
     hosts: "{{targets}}"
     connection: ssh
