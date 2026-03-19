@@ -8,10 +8,18 @@
         prompt: Enter 'a' value 
       - name: b
         prompt: Enter 'b' value 
+    vars:
+      addition: "{{a|int+b|int}}"
+      subtraction: "{{a|int-b|int}}"
+      multiplication: "{{a|int*b|int}}"
+      division: "{{a|int/b|int}}"
     gather_facts: false 
     tasks:
       - name: displaying arithematic results 
         ansible.builtin.debug:
           msg:
             - "a value is: {{a}} and b value is {{b}}"
-            - "Addition is {{a|int+b|int}}"
+            - "Addition is {{addition}}"
+            - "Subtraction is {{subtraction}}"
+            - "Multiplication is {{multiplication}}"
+            - "Division is {{division}}"
