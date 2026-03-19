@@ -7,7 +7,8 @@
   tasks:
     - name: Install Java for RedHat Family (Amazon Linux)
       ansible.builtin.yum:
-        name: java-11-openjdk
+        name: 
+          - java-11-amazon-corretto
         state: present
       when: ansible_os_family == "RedHat"
 
@@ -17,11 +18,11 @@
         update_cache: yes
         state: present
       when: ansible_os_family == "Debian"
-      
-    # - name: Checking java Version
-    #   ansible.builtin.shell: 'java -version'
-    #   register: java_result
 
-    # - name: Display Version
-    #   ansible.builtin.debug:
-    #     msg: "{{ java_result, java_result.rc }}"
+    - name: Checking java Version
+      ansible.builtin.shell: 'java -version'
+      register: java_result
+
+    - name: Display Version
+      ansible.builtin.debug:
+        msg: "{{ java_result, java_result.rc }}"
