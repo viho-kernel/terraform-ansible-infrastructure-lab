@@ -13,6 +13,7 @@
       subtraction: "{{a|int-b|int}}"
       multiplication: "{{a|int*b|int}}"
       division: "{{a|int/b|int}}"
+      percent: "{{a|int%b|int}}"
     gather_facts: false 
     tasks:
       - name: displaying arithematic results 
@@ -23,3 +24,4 @@
             - "Subtraction is {{subtraction}}"
             - "Multiplication is {{multiplication}}"
             - "Division is {{division}}"
+            - "Percentags is {{percent}}"
