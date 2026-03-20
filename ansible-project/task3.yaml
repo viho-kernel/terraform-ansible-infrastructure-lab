@@ -19,20 +19,26 @@
         update_cache: yes
       when: ansible_facts.os_family == "RedHat"
       notify: restart nginx
-    
+
     - name: check the status of nginx
       ansible.builtin.shell: systemctl status nginx
       notify: restart nginx
 
-    - name: Stop Apache if running
+    - name: Stop Apache on Debian/Ubuntu
       ansible.builtin.service:
         name: apache2
         state: stopped
         enabled: false
-      when: ansible_facts.os_family == "RedHat"
-      notify: restart nginx
+      when: ansible_facts.os_family == "Debian"
 
-  handlers: 
+    - name: Stop Apache on Amazon Linux/RHEL
+      ansible.builtin.service:
+        name: httpd
+        state: stopped
+        enabled: false
+      when: ansible_facts.os_family == "RedHat"
+
+  handlers:
     - name: restart nginx
       ansible.builtin.service:
         name: nginx
