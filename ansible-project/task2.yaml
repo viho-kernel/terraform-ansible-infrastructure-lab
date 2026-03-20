@@ -19,3 +19,7 @@
       state: present
       update_cache: true
     when: ansible_facts.os_family == "Debian" 
+  
+  - name: To see the package managers 
+    ansible.builtin.debug:
+      msg: "{{ ansible_facts.pkg_mgr }}"
