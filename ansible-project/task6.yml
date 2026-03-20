@@ -11,7 +11,6 @@
         ansible.builtin.file:
           path: /tmp/demo.txt
           state: touch
-        ignore_errors: true
 
       - name: Write some content
         ansible.builtin.copy:
@@ -20,7 +19,6 @@
           owner: ansadmin
           group: ansadmin
           mode: "0644"
-        ignore_errors: true
 
     rescue:
       - name: Capturing log
