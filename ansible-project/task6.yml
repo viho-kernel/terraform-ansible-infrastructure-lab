@@ -2,9 +2,7 @@
 - name: File creation
   hosts: localhost
   connection: local
-  become: yes
   gather_facts: true
-
   tasks:
     block:
       - name: Ensure demo files are there
@@ -19,6 +17,7 @@
           owner: ansadmin
           group: ansadmin
           mode: "0644"
+    become: yes
 
     rescue:
       - name: Capturing log
