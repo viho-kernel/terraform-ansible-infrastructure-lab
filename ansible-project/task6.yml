@@ -12,6 +12,7 @@
           path: /tmp/demo.txt
           state: touch
         ignore_errors: true
+
       - name: Write some content
         ansible.builtin.copy:
           content: "Putting some content in that"
@@ -22,6 +23,6 @@
         ignore_errors: true
 
     rescue:
-      - name: Captuing log
+      - name: Capturing log
         ansible.builtin.debug:
-          var: "file creation error on {{ inventory_hostname }} "
+          msg: "file creation error on {{ inventory_hostname }}"
