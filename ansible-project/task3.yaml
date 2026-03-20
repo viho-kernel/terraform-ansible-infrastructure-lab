@@ -47,10 +47,16 @@
       when: ansible_facts.os_family == "RedHat"
       notify: restart nginx
 
-    - name: check the status of nginx
-      ansible.builtin.shell: systemctl status nginx
-      notify: restart nginx
+    - name: Gather service facts
+      ansible.builtin.service_facts:
 
+    - name: Check Nginx status
+      ansible.builtin.debug:
+        msg: >
+          Nginx is {{
+           'running' if (services['nginx'].state == 'running') else 'not running'
+          }}
+  when: "'nginx' in services"
   handlers:
     - name: restart nginx
       ansible.builtin.service:
