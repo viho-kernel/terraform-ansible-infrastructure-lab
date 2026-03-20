@@ -1,3 +1,4 @@
+#update cache is used to refresh the system cache before installing any packages.
 ---
 - name: Checking and creating user
   hosts: dev
@@ -9,10 +10,12 @@
     ansible.builtin.yum:
       name: httpd 
       state: present
+      update_cache: true
     when: ansible_facts.os_family == "RedHat" 
 
   - name: Installing packages on Ubuntu Family
     ansible.builtin.apt:
       name: httpd 
       state: present
+      update_cache: true
     when: ansible_facts.os_family == "Debian" 
