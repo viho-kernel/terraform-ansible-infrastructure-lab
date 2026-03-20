@@ -1,27 +1,25 @@
----
 - name: Install Nginx
   hosts: dev
-  become: yes 
-  connection: ssh 
-  gather_facts: true 
+  become: yes
+  gather_facts: true
 
   tasks:
-  - name: Installing Nginx
-    ansible.builtin.yum:
-      name: nginx
-      state: present 
-      update_cache: yes
-    when: ansible_facts['os_family'] == "Debian"
+    - name: Install Nginx on Debian/Ubuntu
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: yes
+      when: ansible_facts['os_family'] == "Debian"
 
-  - name: Install Nginx on Amazon Linux/RHEL
-    ansible.builtin.apt:
-      name: nginx
-      state: present
-      update_cache: yes
-    when: ansible_facts['os_family'] == "RedHat"
+    - name: Install Nginx on Amazon Linux/RHEL
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+        update_cache: yes
+      when: ansible_facts['os_family'] == "RedHat"
 
-  - name: Ensure Nginx is running
-    ansible.builtin.service:
-      name: nginx
-      state: started
-      enabled: true
+    - name: Ensure Nginx is running
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
