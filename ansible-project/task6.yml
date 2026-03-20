@@ -9,7 +9,7 @@
     block:
       - name: Ensure demo files are there
         ansible.builtin.file:
-          pathsa: /tmp/demo.txt
+          path: /tom/demo.txt
           state: touch
 
       - name: Write some content
