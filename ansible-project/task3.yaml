@@ -26,3 +26,6 @@
         name: nginx
         state: started
         enabled: true
+    
+    - name: check the status of nginx
+      ansible.builtin.shell: systemctl status nginx
