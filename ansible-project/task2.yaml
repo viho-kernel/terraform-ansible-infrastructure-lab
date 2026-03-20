@@ -8,14 +8,14 @@
   tasks:
   - name: Installing packages on RHEL Family
     ansible.builtin.yum:
-      name: httpd 
+      name: mysql-server 
       state: present
       update_cache: true
     when: ansible_facts.os_family == "RedHat" 
 
   - name: Installing packages on Ubuntu Family
     ansible.builtin.apt:
-      name: httpd 
+      name: mysql-server 
       state: present
       update_cache: true
     when: ansible_facts.os_family == "Debian" 
