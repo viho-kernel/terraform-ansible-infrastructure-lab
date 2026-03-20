@@ -1,0 +1,42 @@
+---
+- name: Managing cron with error handling
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Ensure cron package is there
+      block:
+        - name: Install cron on debian/ubuntu
+          ansible.builtin.apt:
+            name: cron
+            state: present
+            update_cache: yes
+          when: ansible_facts.osfamily == "Debian"
+
+        - name: Install cron on RHEL
+          ansible.builtin.dnf:
+            name: cronie
+            state: present
+            update_cache: yes
+          when: ansible_facts.osfamily == "RedHat"
+
+        - name: start cron service
+          ansible.builtin.service:
+            name: "{{ 'cron' if ansible_facts.osfamily == 'Debian' else 'crond' }}"
+            state: started
+            enabled: true
+      rescue:
+        - name: Log failure if cron setup fails
+          ansible.builtin.debug:
+            msg: "Cron service setup failed on {{ inventory_hostname }}"
+
+      always:
+        - name: Gather systemd facts
+          ansible.builtin.setup:
+            register: ansible_systemd
+        - name: Show cron systemd facts
+          ansible.builtin.debug:
+            var: ansible_systemd.services[
+              'cron.service' if ansible_facts.osfamily == 'Debian' else 'crond.service'
+              ]
