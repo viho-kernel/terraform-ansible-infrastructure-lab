@@ -8,7 +8,7 @@
     - block:
         - name: Ensure demo files are there
           ansible.builtin.file:
-            patoh: /tmp/demo.txt
+            path: /tmp/demo.txt
             state: touch
 
         - name: Write some content
