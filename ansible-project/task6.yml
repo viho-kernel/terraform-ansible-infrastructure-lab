@@ -1,0 +1,20 @@
+---
+- name: File creation
+  hosts: localhost
+  connection: local
+  become: yes
+  gather_facts: true
+
+  tasks:
+    - name: Ensure demo files are there
+      ansible.builtin.file:
+        path: /tmp/demo.txt
+        state: touch
+
+    - name: Write some content
+      ansible.builtin.copy:
+        content: "Putting some content in that"
+        dest: /tmp/demo.txt
+        owner: ansadmin
+        group: ansadmin
+        mode: "0644"
