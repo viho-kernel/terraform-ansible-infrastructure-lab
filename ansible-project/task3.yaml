@@ -17,20 +17,6 @@
         state: absent
       when: ansible_facts.os_family == "RedHat"
 
-    - name: Change Nginx port to 8080
-      ansible.builtin.replace:
-        path: /etc/nginx/sites-available/default
-        regexp: "listen 80;"
-        replace: "listen 8080;"
-      when: ansible_facts.os_family == "Debian"
-
-    - name: Change Nginx port to 8080 (RHEL/Amazon Linux)
-      ansible.builtin.replace:
-        path: /etc/nginx/nginx.conf
-        regexp: "listen       80;"
-        replace: "listen       8080;"
-      when: ansible_facts.os_family == "RedHat"
-
     - name: Install Nginx on Debian/Ubuntu
       ansible.builtin.apt:
         name: nginx
@@ -44,6 +30,22 @@
         name: nginx
         state: present
         update_cache: yes
+      when: ansible_facts.os_family == "RedHat"
+      notify: restart nginx
+
+    - name: Change Nginx port to 8080 (Debian/Ubuntu)
+      ansible.builtin.replace:
+        path: /etc/nginx/sites-available/default
+        regexp: "listen 80;"
+        replace: "listen 8080;"
+      when: ansible_facts.os_family == "Debian"
+      notify: restart nginx
+
+    - name: Change Nginx port to 8080 (RHEL/Amazon Linux)
+      ansible.builtin.replace:
+        path: /etc/nginx/nginx.conf
+        regexp: "listen       80;"
+        replace: "listen       8080;"
       when: ansible_facts.os_family == "RedHat"
       notify: restart nginx
 
@@ -62,5 +64,5 @@
     - name: restart nginx
       ansible.builtin.service:
         name: nginx
-        state: started
+        state: restarted
         enabled: true
