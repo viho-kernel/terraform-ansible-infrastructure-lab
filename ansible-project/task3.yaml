@@ -4,6 +4,23 @@
   gather_facts: true
 
   tasks:
+    - name: remove nginx
+      ansible.builtin.shell: sudo remove nginx -y
+
+    - name: Stop Apache on Debian/Ubuntu
+      ansible.builtin.service:
+        name: apache2
+        state: stopped
+        enabled: false
+      when: ansible_facts.os_family == "Debian"
+
+    - name: Stop Apache on Amazon Linux/RHEL
+      ansible.builtin.service:
+        name: httpd
+        state: stopped
+        enabled: false
+      when: ansible_facts.os_family == "RedHat"
+
     - name: Install Nginx on Debian/Ubuntu
       ansible.builtin.apt:
         name: nginx
@@ -23,20 +40,6 @@
     - name: check the status of nginx
       ansible.builtin.shell: systemctl status nginx
       notify: restart nginx
-
-    - name: Stop Apache on Debian/Ubuntu
-      ansible.builtin.service:
-        name: apache2
-        state: stopped
-        enabled: false
-      when: ansible_facts.os_family == "Debian"
-
-    - name: Stop Apache on Amazon Linux/RHEL
-      ansible.builtin.service:
-        name: httpd
-        state: stopped
-        enabled: false
-      when: ansible_facts.os_family == "RedHat"
 
   handlers:
     - name: restart nginx
