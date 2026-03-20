@@ -39,4 +39,4 @@
 
     - name: Check SSHD status
       ansible.builtin.debug:
-        var: ansible_systemd.services['httpd..service']
+        var: ansible_systemd.services['httpd.service']
