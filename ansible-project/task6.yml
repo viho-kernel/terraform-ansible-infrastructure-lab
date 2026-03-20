@@ -28,4 +28,4 @@
       always:
         - name: Capturing facts
           ansible.builtin.setup:
-            filter: ansible_facts
+            msg: ansible_facts.*
