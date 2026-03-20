@@ -56,7 +56,8 @@
           Nginx is {{
            'running' if (services['nginx'].state == 'running') else 'not running'
           }}
-  when: "'nginx' in services"
+      when: "'nginx' in services"
+
   handlers:
     - name: restart nginx
       ansible.builtin.service:
