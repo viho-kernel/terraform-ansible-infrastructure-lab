@@ -9,9 +9,9 @@
     block:
       - name: Ensure demo files are there
         ansible.builtin.file:
-          path: /tom/demo.txt
+          path: /tmp/demo.txt
           state: touch
-
+        ignore_errors: true
       - name: Write some content
         ansible.builtin.copy:
           content: "Putting some content in that"
@@ -19,6 +19,8 @@
           owner: ansadmin
           group: ansadmin
           mode: "0644"
+        ignore_errors: true
+
     rescue:
       - name: Captuing log
         ansible.builtin.debug:
