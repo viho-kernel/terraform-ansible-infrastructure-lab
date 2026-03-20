@@ -23,7 +23,6 @@
         state: present
         update_cache: yes
       when: ansible_facts.os_family == "Debian"
-      notify: restart nginx
 
     - name: Install Nginx on Amazon Linux/RHEL
       ansible.builtin.yum:
@@ -31,7 +30,6 @@
         state: present
         update_cache: yes
       when: ansible_facts.os_family == "RedHat"
-      notify: restart nginx
 
     - name: Change Nginx port to 8080 (Debian/Ubuntu)
       ansible.builtin.replace:
@@ -49,6 +47,14 @@
       when: ansible_facts.os_family == "RedHat"
       notify: restart nginx
 
+    - name: Stop Apache if running (Debian/Ubuntu)
+      ansible.builtin.service:
+        name: apache2
+        state: stopped
+        enabled: false
+      when: ansible_facts.os_family == "Debian"
+      ignore_errors: true
+
     - name: Gather service facts
       ansible.builtin.service_facts:
 
@@ -56,7 +62,7 @@
       ansible.builtin.debug:
         msg: >
           Nginx is {{
-           'running' if (services['nginx'].state == 'running') else 'not running'
+            'running' if (services['nginx'].state == 'running') else 'not running'
           }}
       when: "'nginx' in services"
 
