@@ -23,4 +23,4 @@
       rescue:
         - name: Capturing log
           ansible.builtin.debug:
-            msg: "file creation error on {{ inventory_hostname }}"
+            var: "file creation error on {{ inventory_hostname }}"
