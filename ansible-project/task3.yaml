@@ -7,7 +7,7 @@
 
   tasks:
   - name: Installing Nginx
-    ansible.builtin.dnf:
+    ansible.builtin.yum:
       name: nginx
       state: present 
       update_cache: yes 
