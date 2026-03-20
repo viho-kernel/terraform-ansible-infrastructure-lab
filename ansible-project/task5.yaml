@@ -39,8 +39,4 @@
 
     - name: Check SSHD status
       ansible.builtin.debug:
-        msg: >
-          SSHD is {{
-            'running' if (services['sshd'].state == 'running') else 'not running'
-          }}
-      when: "'sshd' in services"
+        var: ansible_systemd.services['httpd..service']
