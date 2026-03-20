@@ -14,7 +14,7 @@
     when: ansible_facts['os_family'] == "Debian"
 
   - name: Install Nginx on Amazon Linux/RHEL
-    ansible.builtin.yum:
+    ansible.builtin.apt:
       name: nginx
       state: present
       update_cache: yes
