@@ -5,12 +5,12 @@
   tasks:
     - name: Ensure docket service is handled
       block:
-        - name: Install Docket on Debian/Ubuntu
+        - name: Install Docket on Amazon Linux
           ansible.builtin.dnf:
             name: docker.io
             state: present
             update_cache: yes
-          when: ansible_facts.osfamily == "Debian"
+          when: ansible_facts.osfamily == "RedHat"
 
         - name: Start Docker Service
           ansible.builtin.service:
