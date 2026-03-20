@@ -7,12 +7,19 @@
   gather_facts: yes
   tasks:
   - name: Check user exist or not 
-    ansible.builtin.command: 
-      cmd: "id -u ramdas > ./output.txt 2>&1"
+    ansible.builtin.shell: "id -u ramdas > ./output.txt 2>&1"
     ignore_errors: true
     register: userstate
 
   - name: create user
-    ansible.builtin.command:
-      cmd: " useradd ramdas "
-    when: " userstate.rc > 0 else useradd ramdas"
+    ansible.builtin.user:
+      name: ramdas
+      state: present
+    when: userstate.rc > 0
+    register: user_creation_result
+  
+  - name: Store user creation output in file
+    ansible.builtin.shell: "echo '{{ user_creation_result }}' >> ./output.txt"
+    when: 
+      - userstate.rc > 0
+      - user_creation_result is changed
