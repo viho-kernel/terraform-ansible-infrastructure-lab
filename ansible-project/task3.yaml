@@ -2,7 +2,7 @@
 - name: Install Nginx
   hosts: dev
   become: yes 
-  #connection: ssh 
+  connection: ssh 
   gather_facts: false 
 
   tasks:
