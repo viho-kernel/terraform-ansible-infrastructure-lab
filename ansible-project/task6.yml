@@ -28,7 +28,12 @@
       always:
         - name: Capturing facts
           ansible.builtin.setup:
-            filter: ansible_facts['devices']
+            filter: ansible_facts['mounts']
         - name: printing values
           ansible.builtin.debug:
-            msg: "{{ ansible_facts['devices'] | dict2items }}"
+            msg:
+              - "Mount: {{ item.mount }}"
+              - " Device: {{ item.device }}"
+              - " Total Space: {{ (item.size_total / (1024*1024*1024)) | round(2) }} GB"
+              - " Available Space: {{ (item.size_available / (1024*1024*1024)) | round(2) }} GB"
+          loop: "{{ ansible_facts['mounts'] }}"
