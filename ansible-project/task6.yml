@@ -32,4 +32,4 @@
 
         - name: Print facts
           ansible.bulitin.debug:
-            msg: " {{ ansible_facts }} "
+            msg: { { ansible_facts } }
