@@ -39,4 +39,8 @@
 
     - name: Check SSHD status
       ansible.builtin.debug:
-        var: ansible_systemd.services['httpd.service']
+        msg: >
+          HTTPD is {{
+           'running' if (services['httpd'].state == 'running') else 'not running'
+          }}
+      when: "'httpd' in services"
