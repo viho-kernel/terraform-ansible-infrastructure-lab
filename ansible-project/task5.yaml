@@ -1,0 +1,44 @@
+---
+- name: Manag Docker service with error handling
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Ensure docket service is handled
+      block:
+        - name: Install Docket on Debian/Ubuntu
+          ansible.builtin.dnf:
+            name: docker.io
+            state: present
+            update_cache: yes
+          when: ansible_facts.osfamily == "Debian"
+
+        - name: Start Docker Service
+          ansible.builtin.service:
+            name: docker
+            state: started
+            enabled: true
+
+      rescue:
+        - name: log failure if docker setup fails
+          ansible.builtin.debug:
+            msg: "Docker setup failed on {{ inventory_hostname }}"
+
+      always:
+        - name: Gather systemd facts
+          ansible.builtin.setup:
+            filter: ansible_systemd*
+
+        - name: Show Docket systemd facts
+          ansible.builtin.debug:
+            msg: ansible_systemd.services['docker.service']
+
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Check Docker status
+      ansible.builtin.debug:
+        msg: >
+          Docker is {{
+            'running' if (services['docker'].state == 'running') else 'not running'
+          }}
+      when: "'docker' in services"
