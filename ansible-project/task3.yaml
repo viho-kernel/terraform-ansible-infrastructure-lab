@@ -4,21 +4,31 @@
   gather_facts: true
 
   tasks:
-    - name: remove nginx
-      ansible.builtin.shell: sudo remove nginx -y
-
-    - name: Stop Apache on Debian/Ubuntu
-      ansible.builtin.service:
-        name: apache2
-        state: stopped
-        enabled: false
+    - name: Remove Nginx on Debian/Ubuntu
+      ansible.builtin.apt:
+        name: nginx
+        state: absent
+        purge: yes
       when: ansible_facts.os_family == "Debian"
 
-    - name: Stop Apache on Amazon Linux/RHEL
-      ansible.builtin.service:
-        name: httpd
-        state: stopped
-        enabled: false
+    - name: Remove Nginx on Amazon Linux/RHEL
+      ansible.builtin.yum:
+        name: nginx
+        state: absent
+      when: ansible_facts.os_family == "RedHat"
+
+    - name: Change Nginx port to 8080
+      ansible.builtin.replace:
+        path: /etc/nginx/sites-available/default
+        regexp: "listen 80;"
+        replace: "listen 8080;"
+      when: ansible_facts.os_family == "Debian"
+
+    - name: Change Nginx port to 8080 (RHEL/Amazon Linux)
+      ansible.builtin.replace:
+        path: /etc/nginx/nginx.conf
+        regexp: "listen       80;"
+        replace: "listen       8080;"
       when: ansible_facts.os_family == "RedHat"
 
     - name: Install Nginx on Debian/Ubuntu
