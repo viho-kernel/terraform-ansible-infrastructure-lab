@@ -2,43 +2,45 @@
 - name: Manag Docker service with error handling
   hosts: localhost
   connection: local
+  become: yes
+  gather_facts: true
   tasks:
     - name: Ensure docket service is handled
       block:
-        - name: Install Docket on Amazon Linux
+        - name: Install OpenSSH server on RHEL/CentOS
           ansible.builtin.dnf:
-            name: docker
+            name: openssh-server
             state: present
             update_cache: yes
           when: ansible_facts.osfamily == "RedHat"
 
-        - name: Start Docker Service
+        - name: Start SSHD service
           ansible.builtin.service:
-            name: docker
+            name: sshd
             state: started
             enabled: true
 
       rescue:
-        - name: log failure if docker setup fails
+        - name: log failure if SSHD setup fails
           ansible.builtin.debug:
-            msg: "Docker setup failed on {{ inventory_hostname }}"
+            msg: "SSHD setup failed on {{ inventory_hostname }}"
 
       always:
         - name: Gather systemd facts
           ansible.builtin.setup:
             filter: ansible_systemd*
 
-        - name: Show Docker systemd facts
+        - name: Show SSHD systemd facts
           ansible.builtin.debug:
-            msg: ansible_systemd.services['docker.service']
+            msg: ansible_systemd.services['sshd.service']
 
     - name: Gather service facts
       ansible.builtin.service_facts:
 
-    - name: Check Docker status
+    - name: Check SSHD status
       ansible.builtin.debug:
         msg: >
-          Docker is {{
-            'running' if (services['docker'].state == 'running') else 'not running'
+          SSHD is {{
+            'running' if (services['sshd'].state == 'running') else 'not running'
           }}
-      when: "'docker' in services"
+      when: "'sshd' in services"
