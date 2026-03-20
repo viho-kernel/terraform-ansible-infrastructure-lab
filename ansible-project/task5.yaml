@@ -7,7 +7,7 @@
       block:
         - name: Install Docket on Amazon Linux
           ansible.builtin.dnf:
-            name: docker.io
+            name: docker
             state: present
             update_cache: yes
           when: ansible_facts.osfamily == "RedHat"
@@ -28,7 +28,7 @@
           ansible.builtin.setup:
             filter: ansible_systemd*
 
-        - name: Show Docket systemd facts
+        - name: Show Docker systemd facts
           ansible.builtin.debug:
             msg: ansible_systemd.services['docker.service']
 
