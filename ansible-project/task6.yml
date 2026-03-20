@@ -24,3 +24,8 @@
         - name: Capturing log
           ansible.builtin.debug:
             msg: "file creation error on {{ inventory_hostname }}"
+
+      always:
+        - name: Capturing facts
+          ansible.builtin.setup:
+            filter: ansible_facts
