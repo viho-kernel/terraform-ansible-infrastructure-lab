@@ -6,15 +6,20 @@
   gather_facts: true
 
   tasks:
-    - name: Ensure demo files are there
-      ansible.builtin.file:
-        path: /tmp/demo.txt
-        state: touch
+    block:
+      - name: Ensure demo files are there
+        ansible.builtin.file:
+          path: /tmp/demo.txt
+          state: touch
 
-    - name: Write some content
-      ansible.builtin.copy:
-        content: "Putting some content in that"
-        dest: /tmp/demo.txt
-        owner: ansadmin
-        group: ansadmin
-        mode: "0644"
+      - name: Write some content
+        ansible.builtin.copy:
+          content: "Putting some content in that"
+          dest: /tmp/demo.txt
+          owner: ansadmin
+          group: ansadmin
+          mode: "0644"
+    rescue:
+      - name: Captuing log
+        ansible.builtin.debug:
+          var: "file creation error on {{ inventory_hostname }} "
