@@ -28,8 +28,7 @@
       always:
         - name: Capturing facts
           ansible.builtin.setup:
-            filter: ansible_facts
-
-        - name: Print facts
-          ansible.bulitin.debug:
-            msg: { { ansible_facts } }
+            filter: ansible_facts['devices']
+        - name: printing values
+          ansible.builtin.debug:
+            msg: "{{ ansible_facts['devices'] | dict2items }}"
