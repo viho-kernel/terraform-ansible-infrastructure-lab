@@ -1,0 +1,18 @@
+---
+- name: Checking and creating user
+  hosts: dev
+  connection: local
+  become: yes
+  gather_facts: true
+  tasks:
+  - name: Installing packages on RHEL Family
+    ansible.builtin.yum:
+      name: httpd 
+      state: present
+    when: ansible_facts.os_family == "RedHat" 
+
+  - name: Installing packages on Ubuntu Family
+    ansible.builtin.apt:
+      name: httpd 
+      state: present
+    when: ansible_facts.os_family == "Debian" 
