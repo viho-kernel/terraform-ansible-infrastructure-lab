@@ -34,8 +34,8 @@
     always:
       - name: Gathering facts
         ansible.builtin.setup:
-          filter: ansible_facts['pkg_mgr']
+          filter: ansible_pkg_mgr
 
       - name: Printing packages
         ansible.builtin.debug:
-          msg: " ansible_facts['pkg_mgr'] "
+          msg: ansible_pkg_mgr
