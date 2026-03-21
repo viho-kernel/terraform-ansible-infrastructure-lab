@@ -1,0 +1,41 @@
+---
+- name: Manage Git package with error handling
+  hosts: dev
+  connection: local
+  become: yes
+  gather_facts: true
+
+  tasks:
+    block:
+      - name: Ensure git package is installed
+        ansible.builtin.dnf:
+          name: git
+          state: present
+          update_cache: yes
+        when: ansible_facts.osfamily == "RedHat"
+
+      - name: Ensure git package is installed
+        ansible.builtin.apt:
+          name: git
+          state: present
+          update_cache: yes
+        when: ansible_facts.osfamily == "Debian"
+
+      - name: Verify git exist
+        ansible.builtin.command: git --version
+        register: git_check
+        changed_when: false
+
+    rescue:
+      - name: No git present
+        ansible.builtin.debug:
+          msg: " unable to install git on {{ inventory_hostname }}"
+
+    always:
+      - name: Gathering facts
+        ansible.builtin.setup:
+          filter: ansible_facts['pkg_mgr']
+
+      - name: Printing packages
+        ansible.builtin.debug:
+          msg: " ansible_facts['pkg_mgr'] "
